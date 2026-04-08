@@ -12,30 +12,21 @@ import Profile from './components/Profile';
 
 
 function App() {
-  
-
   return (
-
-      <div> 
-
-      <Provider store={ appStore }>
-          <BrowserRouter basename='/'>
-             
-           <Routes>
-              
-            <Route path='/' element={<Body></Body>}></Route>
-            <Route path='/feed' element={<Feed></Feed>}></Route>
-            <Route path='/login' element={ <Login></Login>}></Route>
-            <Route path='/profile' element={<Profile></Profile>}></Route>
-            
-           </Routes>
+    <div>
+      <Provider store={appStore}>
+        <BrowserRouter basename='/'>
+          <Routes>
+            <Route path='/' element={<Body />}> 
+              <Route index element={<Feed />} />
+              <Route path='feed' element={<Feed />} />
+              <Route path='profile' element={<Profile />} />
+            </Route>
+            <Route path='login' element={<Login />} />
+          </Routes>
         </BrowserRouter>
       </Provider>
-        
-       
-  
-          
-      </div>
+    </div>
   )
 }
 
