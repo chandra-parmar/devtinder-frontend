@@ -1,64 +1,46 @@
 import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
-import {  Outlet, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { addUser }  from './utils/userSlice'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addUser } from './utils/userSlice'
 import axios from 'axios'
-import Profile from './components/Profile'
-import {useSelector } from 'react-redux'
 
 function Body() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const userData = useSelector((store) => store.user)
 
-      //hooks
-      const dispatch = useDispatch()
-      const navigate = useNavigate()
-      const userData = useSelector((store)=> store.user)
+  const fetchUser = async () => {
+    if (userData) {
+      return
+    }
 
-
-     //api call
-      const fetchUser = async() =>{
-
-        //if userpresent in store logged in then dont call again api for fetch 
-          if(userData)
-          {
-            return 
-          }
-        try{
-
-          const res = await axios.get("http://localhost:5001/api/profile/view",{
-            withCredentials: true
-          })
-
-          //update store
-          dispatch(addUser(res.data))
-
-        }catch(err)
-        {
-          //if user not logged in  
-           if(err.status === 401)
-           {
-             navigate('/login')
-           }
-            
-            console.log(err)
-        }
-
+    try {
+      const res = await axios.get('http://localhost:5001/api/profile/view', {
+        withCredentials: true,
+      })
+      dispatch(addUser(res.data))
+    } catch (err) {
+      if (err.response?.status === 401) {
+        navigate('/login')
+      }
+      console.log(err)
+    }
   }
 
-
-  useEffect(()=>{
-    //if user present in store then dont call api 
-    fetchUser()
-   
-  },[])
-
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user')
+    if (savedUser) {
+      dispatch(addUser(JSON.parse(savedUser)))
+    } else {
+      fetchUser()
+    }
+  }, [])
 
   return (
     <div>
-       
-       <Navbar></Navbar>
-        <Outlet></Outlet>
-        <Profile></Profile>
+      <Navbar />
+      <Outlet />
     </div>
   )
 }
