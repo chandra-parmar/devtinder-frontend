@@ -4,6 +4,7 @@ import { Link,  } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { removeUser } from '../utils/userSlice'
+import toast from 'react-hot-toast'
 
 
 const Navbar = () => {
@@ -24,7 +25,8 @@ const Navbar = () => {
 
         //clear data from redux store
         dispatch(removeUser())
-
+         
+        toast.success("Logged out!")
        return navigate('/login')
 
     }catch(err)
@@ -62,7 +64,7 @@ const Navbar = () => {
                 </Link>
 
               </li>
-              <li><a>Settings</a></li>
+              <li><Link to='/connections'>Connections</Link></li>
               <li><a onClick={handleLogout}>Logout</a></li>
             </ul>
           </div>
