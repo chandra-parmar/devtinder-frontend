@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../utils/userSlice'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 
 
@@ -31,7 +32,8 @@ const Login = () => {
 
            //data added to the redux store
            dispatch(addUser(res.data))
-
+            
+           toast.success("Logged In successfully!")
            return navigate('/feed')
            
         }catch(err)
