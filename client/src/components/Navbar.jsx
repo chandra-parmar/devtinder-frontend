@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link,  } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { removeUser } from '../utils/userSlice'
+import { removeUser } from '../utils/slices/userSlice'
 import toast from 'react-hot-toast'
 
 
@@ -39,7 +39,7 @@ const Navbar = () => {
     <div className="navbar bg-base-100 shadow-sm px-4">
       <div className="flex-1">
 
-        <Link to='/' className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+        <Link to='/' className="btn btn-ghost normal-case text-xl">DevTinder</Link>
 
       </div>
 
@@ -60,11 +60,12 @@ const Navbar = () => {
 
                 <Link to='/profile' className="justify-between">
                   Profile
-                  <span className="badge">New</span>
+                  
                 </Link>
 
               </li>
               <li><Link to='/connections'>Connections</Link></li>
+              <li><Link to='/requests'> Requests</Link></li>
               <li><a onClick={handleLogout}>Logout</a></li>
             </ul>
           </div>
