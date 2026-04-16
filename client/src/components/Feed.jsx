@@ -1,9 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addFeed } from '../utils/feedSlice'
+import { addFeed } from '../utils/slices/feedSlice'
 import { useEffect } from 'react'
 import axios from 'axios'
 import UserCard from '../components/UserCard'
+
 
 function Feed() {
 
@@ -41,9 +42,18 @@ function Feed() {
     getFeed()
   },[])
 
+ 
+  if(!feed)
+  {
+    return
+  }
 
-  if (!feed?.length) {
-    return null
+  if(feed.length <= 0)
+  {
+    return (
+         
+      <h1 className='flex justify-center font-bold text-4xl'>No new user found</h1>
+    )
   }
 
   return (
