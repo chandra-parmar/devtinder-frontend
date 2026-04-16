@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addUser } from './utils/userSlice'
+import { addUser } from './utils/slices/userSlice'
 import axios from 'axios'
 
 function Body() {
